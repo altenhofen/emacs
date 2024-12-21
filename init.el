@@ -1,3 +1,8 @@
+(eval-when-compile
+  (require 'use-package))
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+
 ;; settings
 (setq inhibit-startup-message t)
 (menu-bar-mode 0)
@@ -12,51 +17,20 @@
   )
 
 (set-face-attribute 'default nil :font "Iosevka Comfy  Motion" :height 160)
-(setq frame-resize-pixelwise 1)
-(setq warning-minimum-level :emergency)
-(defun split-and-follow-horizontally ()
-  (interactive)
-  (split-window-below)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 2") 'split-and-follow-horizontally)
 
-(defun split-and-follow-vertically ()
-  (interactive)
-  (split-window-right)
-  (balance-windows)
-  (other-window 1))
-(global-set-key (kbd "C-x 3") 'split-and-follow-vertically)
+(add-to-list 'load-path "~/.emacs.d/my")
 
-;; packages
-(use-package ef-themes
-  :ensure t)
-(load-theme 'ef-deuteranopia-dark t)
-(use-package evil
-  :ensure t)
-(evil-mode 1)
-(evil-set-initial-state 'eat-mode 'emacs)
-(use-package eat
-  :ensure t)
-(use-package switch-window
-  :ensure t
-  :config
-    (setq switch-window-input-style 'minibuffer)
-    (setq switch-window-increase 4)
-    (setq switch-window-threshold 2)
-    (setq switch-window-shortcut-style 'qwerty)
-    (setq switch-window-qwerty-shortcuts
-        '("a" "s" "d" "f" "j" "k" "l" "i" "o"))
-  :bind
-    ([remap other-window] . switch-window))
-
+(require 'my-editor)
+(require 'my-core)
+(require 'my-qol)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(switch-window eat vterm ef-dark ef-themes evil evil-mode)))
+ '(package-selected-packages
+   '(company-pcomplete company yasnippet lsp-ui lsp-mode lua-mode general-mode general.el general evil ef-themes eat)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

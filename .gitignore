@@ -2,4 +2,6 @@ auto-save-list/*
 backup/*
 elpa/*
 eln-cache/*
-
+snippets/*
+.cache/*
+.lsp-session*
