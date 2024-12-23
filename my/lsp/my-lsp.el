@@ -4,20 +4,19 @@
   (yas-reload-all)
   :hook ((lsp-mode . yas-minor-mode)))
 
-(setq read-process-output-max (* 1024 1024))
-
 (use-package lsp-mode
   :ensure t
   :custom
   (lsp-lens-enable nil)
   (lsp-prefer-flymake nil)
   (lsp-enable-snippet t)
-  (lsp-eldoc-render-all t)
-  :config
-  (defun my/lsp-setup ()
-    (setq-local my/contextual-lookup #'eldoc)
-    (setq-local eldoc-display-functions '(eldoc-display-in-buffer)))
-  (add-hook 'lsp-mode-hook #'my/lsp-setup))
+  (lsp-eldoc-render-all t))
+
+(defun my/lsp-setup ()
+
+(setq-local my/contextual-lookup #'eldoc)
+(setq-local eldoc-display-functions '(eldoc-display-in-buffer)))
+(add-hook 'lsp-mode-hook #'my/lsp-setup)
 (use-package lsp-ui
   :custom
   (lsp-ui-doc-enable t)
@@ -36,12 +35,20 @@
   (ef-themes-with-colors
     (set-face-attribute 'lsp-ui-doc-background nil :background bg-main)))
 
-(use-package lsp-ui-doc)
-
+(use-package lsp-ui-doc
+  :ensure t)
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
 
 (add-hook 'lua-mode-hook 'lsp-mode)
 (add-hook 'python-mode-hook 'lsp-mode)
 (add-hook 'rust-mode-hook 'lsp-mode)
 (add-hook 'go-mode-hook 'lsp-mode)
+(add-hook 'c-mode-hook 'lsp-mode)
+(add-hook 'c++-mode-hook 'lsp-mode)
 
 (provide 'my-lsp)

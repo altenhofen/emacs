@@ -1,8 +1,11 @@
+(require 'package)
+;; Any add to list for package-archives (to add marmalade or melpa) goes here
+(add-to-list 'package-archives 
+    '("MELPA" .
+      "http://melpa.org/packages/"))
+(package-initialize)
 (eval-when-compile
   (require 'use-package))
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-
 ;; settings
 (setq inhibit-startup-message t)
 (menu-bar-mode 0)
@@ -30,7 +33,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-pcomplete company yasnippet lsp-ui lsp-mode lua-mode general-mode general.el general evil ef-themes eat)))
+   '(consult marginalia orderless vertico eat ef-themes flycheck-inline quick-peek company-pcomplete company lua-mode lsp-pyright lsp-ui-doc lsp-mode yasnippet evil)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
